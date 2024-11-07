@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WanderCasa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+   <style>
+        .scroll-snap-x {
+            display: flex;
+            overflow-x: scroll;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .scroll-snap-x::-webkit-scrollbar {
+            display: none;
+        }
+        .snap-start {
+            scroll-snap-align: start;
+            flex: none;
+            padding: 8px 16px;
+            margin-right: 8px;
+            background-color: #f0f0f0;
+            border-radius: 9999px;
+            text-align: center;
+            white-space: nowrap;
+            transition: transform 0.2s, background-color 0.2s; /* Transition for smooth effect */
+        }
+        .snap-start:hover {
+            background-color: rgba(153,153,153,0.50) ; /* Change background color on hover */
+            transform: scale(1.1); /* Increase size on hover */
+            color:black; /* Change text color on hover for better contrast */
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+.footer-links .footer-link {
+    margin-right: 1.5rem; /* Adjusted for smaller size */
+    font-size: 1em; /* Adjust font size */
+    margin-top: 0.5em; /* Adjusted for smaller size */
+}
+
+.footer-icons .footer-icon {
+    margin-right: 1.5rem; /* Adjusted for smaller size */
+}
+
+.footer-links .footer-link:last-child,
+.footer-icons .footer-icon:last-child {
+    margin-right: 0;
+}
+
+@media (min-width: 640px) { /* Small screens */
+    .footer-links .footer-link,
+    .footer-icons .footer-icon {
+        margin-right: 2rem; /* Adjusted */
+    }
+}
+
+@media (min-width: 768px) { /* Medium screens */
+    .footer-links .footer-link,
+    .footer-icons .footer-icon {
+        margin-right: 3rem; /* Adjusted */
+    }
+}
+
+@media (min-width: 1024px) { /* Large screens */
+    .footer-links .footer-link,
+    .footer-icons .footer-icon {
+        margin-right: 4rem; /* Adjusted */
+    }
+}
+
+    </style>
+</head>
+<body class="bg-beige p-4">
+
+    <!-- Header avec barre de navigation responsive -->
+    <div class="flex justify-between items-center p-4 bg-white mb-4">
+        <!-- Barre de navigation horizontale sur écrans moyens et plus -->
+<nav class="fixed top-0 left-0 w-full bg-beige2 bg-opacity-100 text-black p-4 z-20 shadow-md" style="background-color: rgb(239, 226, 213);">
+    <div class="max-w-screen-xl mx-auto flex items-center justify-between">
+        <!-- Logo -->
+        <a href="index.html" class="text-2xl md:text-3xl tracking-widest font-serif font-bold lg:text-4xl" style="font-family: 'Pacifico', cursive; transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">WanderCasa</a>
+        
+        <!-- Liens de Navigation -->
+        <ul class="hidden md:flex space-x-14 text-sm font-semibold uppercase tracking-wider">
+            <li><a href="index.html" class="hover:underline font-normal text-sm" style="font-family: 'Montserrat', sans-serif;">Accueil</a></li>
+            <li><a href="Places.html" class="hover:underline font-normal text-sm" style="font-family: 'Montserrat', sans-serif;">Places</a></li>
+            <li><a href="new6.html" class="hover:underline font-normal text-sm" style="font-family: 'Montserrat', sans-serif;">Événements</a></li>
+        </ul>
+        
+        <!-- Icône de profil -->
+        <div class="relative hidden md:block md:flex">
+            <a href="#" id="profile-icon" class="block">
+                <img src="img/8707326_profile_user_man_boy_avatar_icon.png" alt="Profile" class="h-8 w-8 transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer" style="transform: scale(1); transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';">
+            </a>
+
+            <!-- Dropdown Menu -->
+            <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2">
+                <a href="Signup.html" class="block px-4 py-2 text-base hover:bg-gray-200">Profil</a>
+                <hr class="bg-beige2 h-0.5">
+                <button onclick="logout()" class="block w-full text-left px-4 py-2 text-base hover:bg-gray-200">Logout</button>
+            </div>
+        </div>
+
+        <!-- Bouton pour menu mobile -->
+        <button id="menu-toggle" class="md:hidden p-2">
+            <svg class="w-6 h-6 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div id="navbar-sticky" class="md:hidden hidden fixed top-11.5 left-0 w-4/5 h-full bg-opacity-80 text-white backdrop-blur-lg z-30 shadow-lg rounded-r-lg p-8" style="background-color: #EFE2D5;">
+        <!-- Close Button -->
+        <button id="menu-close" class="absolute top-2.5 right-4 text-black text-xl font-semibold">✕</button>
+
+        <div class="mt-10 space-y-6">
+            <a href="index.html" class="flex items-center text-lg hover:text-gray-300">
+                <span>🏠</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;">Accueil</span>
+            </a>
+            <a href="Places.html" class="flex items-center text-lg font-semibold hover:text-gray-300">
+                <span>📍</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;">Places</span>
+            </a>
+            <a href="new6.html" class="flex items-center text-lg font-semibold hover:text-gray-300">
+                <span>📅</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;">Événements</span>
+            </a>
+            <hr class="border-t border-gray-600">
+            
+            <a href="#" class="flex items-center text-lg font-semibold hover:text-gray-300">
+                <span>👤</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;">Profil</span>
+            </a>
+            <button class="text-white px-6 py-2 rounded-full w-full text-center text-lg mb-3 transition-transform duration-200 ease-in-out inline-block hover:shadow-lg" style="transform: scale(1); transition: transform 0.2s ease-in-out; background-color: #8E653B;" onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                Se déconnecter
+            </button>
+        </div>
+    </div>
+</nav>
+    </div>
+
+<div class="flex flex-col sm:flex-row items-center justify-between mb-4">  
+    <h2 class="text-2xl font-bold sm:mr-4"style="margin-top:25px;">Places à visiter</h2>
+    <div class="relative flex items-center w-full sm:w-auto">
+        <input 
+            type="text" 
+            id="search-bar"
+            placeholder="Rechercher un événement..." 
+            class="border border-gray-300 rounded-full pl-10 pr-4 py-2 outline-none focus:ring-2 focus:ring-gray-300 w-full sm:w-auto sm:max-w-xs"
+            style="min-width: 250px;margin-top:25px;"
+        />
+        <i class="fas fa-search absolute left-3 text-gray-500"style="margin-top:25px;"></i>
+    </div>
+</div>
+
+    <!-- Catégories défilantes -->
+<div id="categories" class="scroll-snap-x pb-4 mb-4 gap-x-3">
+     <button class="snap-start" style="background-color: rgba(230, 204, 178, 0.75); color: black; box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2);"><img src="mall.png" alt="Gastronomy Icon" class="w-6 h-6 inline-block mr-2">Malls</button>
+    <button class="snap-start"><img src="cafe.png" alt="Music Icon" class="w-6 h-6 inline-block mr-2">Café</button>
+	<button class="snap-start"><img src="religion.png" alt="Religion Icon" class="w-6 h-6 inline-block mr-2">Religion</button>
+
+    
+    <a href="new7.html" class="snap-start">
+        <img src="jardin.png" alt="Education Icon" class="w-6 h-6 inline-block mr-2">Jardins
+    </a>
+    
+    <button class="snap-start"><img src="serveur.png" alt="Art Icon" class="w-6 h-6 inline-block mr-2">Restauration</button>
+
+</div>
+
+    <!-- Section Événements -->
+    <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 lg:gap-6 xl:gap-8">
+
+        <!-- Carte d'événement avec disposition différente selon la taille d'écran -->
+
+        <!-- More Event Cards as examples -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden p-4 lg:p-2" style="background-color: rgba(230, 204, 178, 0.35);">
+            <div class="flex flex-row md:flex-col">
+                <img src="morocco.png" alt="Image de l'événement" class="flex-grow h-50 object-cover md:h-auto">
+                <div class="p-4 flex-grow">
+                    <h3 class="text-xl font-bold">Morocco Mall</h3>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Ain Diab, Casablanca</span>
+                    </div>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-clock mr-2"></i>
+                                  
+							<span>10:00</span>
+							<i class="fas fa-arrow-right mx-2"></i> <!-- Icône flèche -->
+							<span>22:00</span>
+                    </div>
+                    <button style="width: 100%;" class="mt-2 px-4 py-1 bg-gray-200 border border-black text-black rounded-full hover:bg-gray-400 flex items-center justify-center space-x-1">
+                        <span>Détails</span>
+                        <span>&#8599;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+		
+		
+		<div class="bg-white rounded-lg shadow-md overflow-hidden p-4 lg:p-2" style="background-color: rgba(230, 204, 178, 0.35);">
+            <div class="flex flex-row md:flex-col">
+                <img src="aeria.png" alt="Image de l'événement" class="flex-grow h-50 object-cover md:h-auto">
+                <div class="p-4 flex-grow">
+                    <h3 class="text-xl font-bold">Aeria Mall</h3>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Anfa, Casablanca</span>
+                    </div>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>09:00</span>
+							<i class="fas fa-arrow-right mx-2"></i> <!-- Icône flèche -->
+							<span>22:00</span>
+                    </div>
+                    <button style="width: 100%;" class="mt-2 px-4 py-1 bg-gray-200 border border-black text-black rounded-full hover:bg-gray-400 flex items-center justify-center space-x-1">
+                        <span>Détails</span>
+                        <span>&#8599;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+		
+		<div class="bg-white rounded-lg shadow-md overflow-hidden p-4 lg:p-2" style="background-color: rgba(230, 204, 178, 0.35);">
+            <div class="flex flex-row md:flex-col">
+                <img src="anfa.png" alt="Image de l'événement" class="flex-grow h-50 object-cover md:h-auto">
+                <div class="p-4 flex-grow">
+                    <h3 class="text-xl font-bold">Anfaplace Mall</h3>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Bd Corniche, Casablanca</span>
+                    </div>
+                    <div class="flex items-center text-base font-normal">
+                         <i class="fas fa-clock mr-2"></i>
+                            <span>10:00</span>
+							<i class="fas fa-arrow-right mx-2"></i> <!-- Icône flèche -->
+							<span>22:00</span>
+                    </div>
+                    <button style="width: 100%;" class="mt-2 px-4 py-1 bg-gray-200 border border-black text-black rounded-full hover:bg-gray-400 flex items-center justify-center space-x-1">
+                        <span>Détails</span>
+                        <span>&#8599;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+		
+		<div class="bg-white rounded-lg shadow-md overflow-hidden p-4 lg:p-2" style="background-color: rgba(230, 204, 178, 0.35);">
+            <div class="flex flex-row md:flex-col">
+                <img src="tachfine.png" alt="Image de l'événement" class="flex-grow h-90 object-cover md:h-auto">
+                <div class="p-4 flex-grow">
+                    <h3 class="text-xl font-bold">Tachfine Mall</h3>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Bd Ibn Tachfine</span>
+                    </div>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>09:00</span>
+							<i class="fas fa-arrow-right mx-2"></i> <!-- Icône flèche -->
+							<span>22:00</span>
+                    </div>
+                    <button style="width: 100%;" class="mt-2 px-4 py-1 bg-gray-200 border border-black text-black rounded-full hover:bg-gray-400 flex items-center justify-center space-x-1">
+                        <span>Détails</span>
+                        <span>&#8599;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+		<div class="bg-white rounded-lg shadow-md overflow-hidden p-4 lg:p-2" style="background-color: rgba(230, 204, 178, 0.35);">
+            <div class="flex flex-row md:flex-col">
+                <img src="marina.png" alt="Image de l'événement" class="flex-grow h-50 object-cover md:h-auto">
+                <div class="p-4 flex-grow">
+                    <h3 class="text-xl font-bold">Marina Mall</h3>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Bd Almohades Casablanca</span>
+                    </div>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>10:00</span>
+							<i class="fas fa-arrow-right mx-2"></i> <!-- Icône flèche -->
+							<span>22:00</span>
+                    </div>
+                    <button style="width: 100%;" class="mt-2 px-4 py-1 bg-gray-200 border border-black text-black rounded-full hover:bg-gray-400 flex items-center justify-center space-x-1">
+                        <span>Détails</span>
+                        <span>&#8599;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+		<div class="bg-white rounded-lg shadow-md overflow-hidden p-4 lg:p-2" style="background-color: rgba(230, 204, 178, 0.35);margin-bottom:10px;">
+            <div class="flex flex-row md:flex-col">
+                <img src="bous.png" alt="Image de l'événement" class="flex-grow h-50 object-cover md:h-auto rounded-[30px]">
+                <div class="p-4 flex-grow">
+                    <h3 class="text-xl font-bold">Myriades Bouskoura</h3>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>Bouskoura</span>
+                    </div>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span>10:00</span>
+							<i class="fas fa-arrow-right mx-2"></i> <!-- Icône flèche -->
+							<span>22:00</span>
+                    </div>
+                    <button style="width: 100%;" class="mt-2 px-4 py-1 bg-gray-200 border border-black text-black rounded-full hover:bg-gray-400 flex items-center justify-center space-x-1">
+                        <span>Détails</span>
+                        <span>&#8599;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+				<div class="bg-white rounded-lg shadow-md overflow-hidden p-4 lg:p-2" style="background-color: rgba(230, 204, 178, 0.35);margin-bottom:10px;">
+            <div class="flex flex-row md:flex-col">
+                <img src="california.png" alt="Image de l'événement" class="flex-grow h-50 object-cover md:h-auto rounded-[30px]">
+                <div class="p-4 flex-grow">
+                    <h3 class="text-xl font-bold">Californie Mall</h3>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>Ain Diab, Casablanca</span>
+                    </div>
+                    <div class="flex items-center text-base font-normal">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>09:00</span>
+							<i class="fas fa-arrow-right mx-2"></i> <!-- Icône flèche -->
+							<span>22:00</span>
+                    </div>
+                    <button style="width: 100%;" class="mt-2 px-4 py-1 bg-gray-200 border border-black text-black rounded-full hover:bg-gray-400 flex items-center justify-center space-x-1">
+                        <span>Détails</span>
+                        <span>&#8599;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional cards as needed -->
+
+    </section>
+	<div style="color:white">vvvvvvvvvvvvvvvv </div>
+<footer class="text-white py-8 w-full mt-8 text-lg" style="background-color: #e1cdb7;">
+
+    <div class="container mx-auto text-center">
+        <!-- Links Section -->
+        <nav class="flex justify-center mb-4 footer-links">
+            <a href="#" class="text-black hover:text-gray-400 footer-link ">About us</a>
+            <a href="#" class="text-black hover:text-gray-400 footer-link">Contact</a>
+            <a href="#" class="text-black hover:text-gray-400 footer-link">Jobs</a>
+            <a href="#" class="text-black hover:text-gray-400 footer-link">Press kit</a>
+        </nav>
+
+        <!-- Social Icons Section -->
+        <div class="flex justify-center mb-4 footer-icons">
+            <a href="#" class="hover:text-gray-400 footer-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current text-black">
+                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                </svg>
+            </a>
+            <a href="#" class="hover:text-gray-400 footer-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current text-black">
+                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                </svg>
+            </a>
+            <a href="#" class="hover:text-gray-400 footer-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current text-black">
+                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="text-center mt-4 text-black">
+            <p>&copy; <script>document.write(new Date().getFullYear());</script> - All rights reserved by ACME Industries Ltd</p>
+        </div>
+    </div>
+</footer>	
+
+<script>
+// Sélectionnez la barre de recherche et toutes les cartes d'événements
+const searchBar = document.getElementById('search-bar');
+const eventCards = document.querySelectorAll('.grid > div');
+
+// Ajoutez un écouteur d'événements à la barre de recherche
+searchBar.addEventListener('input', () => {
+    const searchText = searchBar.value.toLowerCase(); // Texte saisi en minuscule
+
+    eventCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase(); // Titre de l'événement en minuscule
+        const location = card.querySelector('.fa-map-marker-alt + span').textContent.toLowerCase(); // Lieu de l'événement
+        const date = card.querySelector('.fa-calendar-alt + span').textContent.toLowerCase(); // Date de l'événement
+        
+        // Vérifiez si le texte saisi correspond au titre, à la localisation ou à la date
+        if (title.includes(searchText) || location.includes(searchText) || date.includes(searchText)) {
+            card.style.display = ''; // Affiche la carte
+        } else {
+            card.style.display = 'none'; // Cache la carte
+        }
+    });
+});
+
+// Toggle profile dropdown on profile icon click
+document.getElementById("profile-icon").addEventListener("click", function(event) {
+    event.preventDefault();
+    const dropdown = document.getElementById("profile-dropdown");
+    dropdown.classList.toggle("hidden");
+});
+
+// Show or hide the mobile menu on menu toggle button click
+document.getElementById('menu-toggle').addEventListener('click', function() {
+    const navbarMenu = document.getElementById('navbar-sticky');
+    navbarMenu.classList.toggle('hidden'); 
+});
+
+// Close the mobile menu when "X" button is clicked
+document.getElementById('menu-close').addEventListener('click', function() {
+    const navbarMenu = document.getElementById('navbar-sticky');
+    navbarMenu.classList.add('hidden');
+});
+
+// Fermez le menu mobile lorsque le menu est ouvert et qu'un clic est effectué ailleurs
+document.addEventListener('click', function(event) {
+    const navbarMenu = document.getElementById('navbar-sticky');
+    const toggleButton = document.getElementById('menu-toggle');
+    
+    if (!navbarMenu.classList.contains('hidden') && !navbarMenu.contains(event.target) && !toggleButton.contains(event.target)) {
+        navbarMenu.classList.add('hidden');
+    }
+});
+</script>	
+</script>
+
+</body>
+</html>

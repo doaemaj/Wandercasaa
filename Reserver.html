@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Formulaire de réservation</title>
+    <style>
+          .blur-bg {
+            background: url('photo.jpg') ;
+            background-size: cover;
+            filter: blur(5px);
+        }
+        .disabled-field {
+            background-color: #E5E7EB;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        @media (max-width: 700px) {
+            .blur-bg {
+                background: url('photo.jpg') no-repeat center center fixed;
+                background-size: cover;
+                opacity: 0.31;
+            }
+            .form-container {
+                border: none;
+                background-color: transparent;
+                box-shadow: none;
+                margin-top: 21em !important;
+            }
+            .form-inner {
+                background-color: rgba(255, 255, 255, 0.7);
+            }
+        }
+        footer {
+            position: relative; /* Assurez-vous que le footer est en position relative ou absolue */
+            z-index: 10; /* Un chiffre élevé pour éviter que d'autres éléments le couvrent */
+            background-color: #e1cdb7; /* Couleur de fond */
+            /* S'assurer que le curseur change pour indiquer que c'est cliquable */
+        }
+        .footer-links .footer-link {
+            margin-right: 2rem;
+            font-size: 1.2em;
+            margin-top: 0.7em;
+        }
+
+        .footer-icons .footer-icon {
+            margin-right: 2rem;
+            
+        }
+
+        .footer-links .footer-link:last-child,
+        .footer-icons .footer-icon:last-child {
+            margin-right: 0;
+        }
+
+        @media (min-width: 640px) { /* Small screens */
+            .footer-links .footer-link,
+            .footer-icons .footer-icon {
+                margin-right: 3rem;
+            }
+        }
+
+        @media (min-width: 768px) { /* Medium screens */
+            .footer-links .footer-link,
+            .footer-icons .footer-icon {
+                margin-right: 4rem;
+            }
+        }
+
+        @media (min-width: 1024px) { /* Large screens */
+            .footer-links .footer-link,
+            .footer-icons .footer-icon {
+                margin-right: 5rem;
+            }
+        }
+        
+    </style>
+</head>
+<body class="min-h-screen relative">
+<div class="items-center justify-center flex flex-col">
+    <nav class="fixed top-0 left-0 w-full bg-opacity-100 text-black p-4 z-20 shadow-md" style="background-color: #EFE2D5;">
+        <div class="max-w-screen-xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="text-2xl md:text-3xl tracking-widest font-serif font-bold lg:text-4xl"  style="font-family: 'Pacifico', cursive;transform: scale(1); transition: transform 0.2s ease-in-out;"
+            onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">WanderCasa</a>
+            
+            <!-- Liens de Navigation -->
+            <ul class="hidden md:flex space-x-14 text-sm font-semibold uppercase tracking-wider">
+                <li><a href="index.html" class="hover:underline font-normal text-sm" style="font-family: 'Montserrat', sans-serif;">Accueil</a></li>
+                <li><a href="Places.html" class="hover:underline font-normal text-sm" style="font-family: 'Montserrat', sans-serif;">Places</a></li>
+                <li><a href="new6.html" class="hover:underline font-normal text-sm" style="font-family: 'Montserrat', sans-serif;">Événements</a></li>
+                
+            </ul>
+            
+            <!-- Icône de profil -->
+            <div class="relative hidden md:block md:flex">
+                <a href="#" id="profile-icon" class="block">
+                    <img src="img/8707326_profile_user_man_boy_avatar_icon.png" alt="Profile" class="h-8 w-8 transition-transform duration-200 ease-in-out hover:scale-105 cursor-pointer" style="transform: scale(1); transition: transform 0.2s ease-in-out;"
+                    onmouseover="this.style.transform='scale(1.2)';" onmouseout="this.style.transform='scale(1)';">
+                </a>
+    
+                <!-- Dropdown Menu -->
+                <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2">
+                    <a href="Signup.html" class="block px-4 py-2 text-base hover:bg-gray-200">Profil</a>
+                    <hr class="bg-beige2 h-0.5">
+                    <button onclick="logout()" class="block w-full text-left px-4 py-2 text-base hover:bg-gray-200">Logout</button>
+                </div>
+            </div>
+
+
+            <!-- Bouton pour menu mobile -->
+            <button id="menu-toggle" class="md:hidden p-2">
+                <svg class="w-6 h-6 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Menu Mobile -->
+        
+    <div id="navbar-sticky" class="md:hidden hidden fixed top-11.5 left-0 w-4/5 h-full bg-beige2 bg-opacity-80 text-white backdrop-blur-lg z-30 shadow-lg rounded-r-lg p-8">
+        <!-- Close Button -->
+        <button id="menu-close" class="absolute top-2.5 right-4 text-black text-xl font-semibold">✕</button>
+
+        <div class="mt-10 space-y-6">
+            <a href="#" class=" flex items-center text-lg hover:text-gray-300">
+                <span>🏠</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;">Accueil</span>
+            </a>
+            <a href="#" class="flex items-center text-lg font-semibold hover:text-gray-300">
+                <span>📍</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;"l-2 text-black">Places</span>
+            </a>
+            <a href="#" class=" flex items-center text-lg font-semibold hover:text-gray-300">
+                <span>📅</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;">Événements</span>
+            </a>
+            <hr class="border-t border-gray-600">
+            
+                <a href="#" class="flex items-center text-lg font-semibold hover:text-gray-300">
+                    <span>👤</span><span class="ml-2 text-black font-medium hover:underline" style="font-family: 'Montserrat', sans-serif;">Profil</span>
+                </a>
+                <button class="bg-marron text-white px-6 py-2 rounded-full w-full text-center text-lg mb-3 transition-transform duration-10000 ease-in-out inline-block hover:shadow-lg"
+                        style="transform: scale(1); transition: transform 0.2s ease-in-out;"
+                        onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                        Se déconnecter
+                </button>
+          
+        </div>
+    </div>
+    </nav>
+
+
+
+    <div class="blur-bg absolute inset-0"></div> >
+
+    <div class="relative z-10 form-container flex max-w-4xl w-full bg-white shadow-lg overflow-hidden md:mt-20 mb-10 p-6" style="border-radius: 25px;">
+        <!-- Image section visible uniquement sur les écrans moyens et plus grands -->
+        <div class="hidden md:flex w-full md:w-1/2 items-center justify-center p-2">
+            <img src="photo.jpg" alt="Événement" class="w-full h-auto max-h-96 object-cover rounded-md shadow-lg" style="box-shadow: 0px 4px 10px #84674B; border-radius: 35px;">
+        </div>
+    
+        <!-- Formulaire toujours visible -->
+        <div id="myform" class="w-full md:w-1/2 p-4 flex flex-col space-y-3" style="font-family: 'Poppins', sans-serif;">
+            <h2 class="text-base font-bold mb-2">Informations personnelles:</h2>
+            <ul class="space-y-2">
+                <li class="flex items-center">
+                    <label for="email" class="w-1/3 text-base font-normal">Email:</label>
+                    <input type="email" id="email" name="email" required class="border-2 border-custom-brown rounded-md w-2/3 p-1 text-base h-8" />
+                </li>
+                <li class="flex items-center">
+                    <label for="numtél" class="w-1/3 text-base font-normal">Numéro de téléphone:</label>
+                    <input type="text" id="numtél" name="numtél" required class="border-2 border-custom-brown rounded-md w-2/3 p-1 text-base h-8" />
+                </li>
+            </ul>
+            <hr class="my-2" />
+            <h3 class="text-base font-bold mb-2">Informations de paiement :</h3>
+            <div class="flex items-center mb-2">
+                <input type="checkbox" id="toggleSwitch" onclick="toggleForm()" class="mr-2" />
+                <label for="toggleSwitch" class="text-base ml-2 font-semibold">Cocher si l'événement est gratuit</label>
+            </div>
+            
+            <ul class="space-y-2">
+                <li class="flex items-center">
+                    <label for="carte" class="w-1/3 text-base font-normal">Numéro de carte:</label>
+                    <input type="text" id="carte" name="carte" required class="border-2 border-custom-brown rounded-md w-2/3 p-1 text-base h-8" />
+                </li>
+                <li class="flex items-center">
+                    <label for="Benificaire_carte" class="w-1/3 text-base font-normal">Bénéficiaire:</label>
+                    <input type="text" id="Benificaire_carte" name="Benificaire_carte" required class="border-2 border-custom-brown rounded-md w-2/3 p-1 text-base h-8" />
+                </li>
+                <li class="flex items-center">
+                    <label for="Date_Exp" class="w-1/3 text-base font-normal">Date d'expiration:</label>
+                    <input type="date" id="Date_Exp" name="Date_Exp" required class="border-2 border-custom-brown rounded-md w-2/3 p-1 text-base h-8" />
+                </li>
+                <li class="flex items-center">
+                    <label for="Code_Cfrm" class="w-1/3 text-base font-normal">Code de confirmation:</label>
+                    <input type="text" id="Code_Cfrm" name="Code_Cfrm" required class="border-2 border-custom-brown rounded-md w-2/3 p-1 text-base h-8" />
+                </li>
+            </ul>
+            <div class="flex justify-center space-x-2 mt-4">
+               <a href="event.html"><button type="button" class=" text-custom-brown font-semibold px-3 py-1 text-base" style="width: 90px; height: 30px;;border-radius: 18px; font-size:15px;background-color: #af9073;">Annuler</button></a>
+                <a href="new6.html"><button class=" text-light-brown rounded-md font-semibold py-1 text-base " style="width: 90px; height: 30px;border-radius: 25px; font-size:15px; background-color: #af9073;">Réserver</button></a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+    <footer class="text-white py-8 " style="background-color: #e1cdb7;">
+        <div class="container mx-auto text-center">
+            <!-- Links Section -->
+            <nav class="flex justify-center mb-4 footer-links">
+                <a href="#" class="text-black hover:text-gray-400 footer-link ">About us</a>
+                <a href="#" class="text-black hover:text-gray-400 footer-link">Contact</a>
+                <a href="#" class="text-black hover:text-gray-400 footer-link">Jobs</a>
+                <a href="#" class="text-black hover:text-gray-400 footer-link">Press kit</a>
+            </nav>
+    
+            <!-- Social Icons Section -->
+            <div class="flex justify-center mb-4 footer-icons">
+                <a href="#" class="hover:text-gray-400 footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current text-black hover:fill-gray-400">
+                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="hover:text-gray-400 footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current text-black hover:fill-gray-400">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                    </svg>
+                </a>
+                <a href="#" class="hover:text-gray-400 footer-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current text-black hover:fill-gray-400">
+                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
+                    </svg>
+                </a>
+            </div>
+    
+            <!-- Copyright Section -->
+            <div class="text-center mt-4 text-black">
+                <p>&copy; <script>document.write(new Date().getFullYear());</script> - All rights reserved by ACME Industries Ltd</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleForm() {
+            const isChecked = document.getElementById('toggleSwitch').checked;
+            const fields = [
+                document.getElementById('carte'),
+                document.getElementById('Benificaire_carte'),
+                document.getElementById('Date_Exp'),
+                document.getElementById('Code_Cfrm')
+            ];
+            fields.forEach(field => {
+                field.disabled = isChecked;
+                if (isChecked) {
+                    field.classList.add('disabled-field');
+                } else {
+                    field.classList.remove('disabled-field');
+                }
+            });
+        }
+
+        document.getElementById("profile-icon").addEventListener("click", function(event) {
+        event.preventDefault();
+        const dropdown = document.getElementById("profile-dropdown");
+        dropdown.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", function(event) {
+        const profileIcon = document.getElementById("profile-icon");
+        const dropdown = document.getElementById("profile-dropdown");
+
+        if (!profileIcon.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add("hidden");
+        }
+    });
+
+    // Variables for menu toggle and close button
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const mobileMenu = document.getElementById('navbar-sticky');
+
+    // Toggle the mobile menu open and close
+    menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close the mobile menu when clicking on the "X" button
+    menuClose.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+    });
+
+    // Optional: Close the menu if clicking outside of it
+    document.addEventListener('click', function(event) {
+        if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+    </script>
+</body>
+</html>
+<!-- commande pour compiler fichier d config de tailwind npx tailwindcss -i .\style.css -o .\output.css --watch -->
